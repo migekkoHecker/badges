@@ -6,28 +6,33 @@
     <title>Achievements</title>
     <style>
       /* Center the list on the page */
-      :root{--bg:#f7f7fb;--card:#fff;--muted:#6b7280;--accent:#2563eb}
-      html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#111}
+      :root{
+        --bg:#0f172a; /* dark navy blue */
+        --card:#1e293b;
+        --muted:#94a3b8;
+        --accent:#3b82f6;
+      }
+      html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#f1f5f9}
       .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:3rem}
       .badges{width:min(720px,95%);display:grid;gap:1rem}
 
       /* Single badge */
-      .badge{background:var(--card);border-radius:12px;padding:.6rem;border:1px solid rgba(0,0,0,0.06);box-shadow:0 6px 18px rgba(16,24,40,0.04)}
+      .badge{background:var(--card);border-radius:12px;padding:.6rem;border:1px solid rgba(255,255,255,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.25)}
       summary{list-style:none;display:flex;align-items:center;gap:.75rem;cursor:pointer;outline:none}
       summary::-webkit-details-marker{display:none}
 
-      .icon{width:48px;height:48px;flex:0 0 48px;border-radius:8px;display:inline-grid;place-items:center;background:linear-gradient(135deg,#eef2ff,#e0f2fe);font-weight:700}
+      .icon{width:48px;height:48px;flex:0 0 48px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#334155}
+      .icon img{width:100%;height:100%;object-fit:cover}
+
       .meta{flex:1;display:flex;flex-direction:column}
-      .title{font-size:1rem;font-weight:700}
+      .title{font-size:1rem;font-weight:700;color:#f8fafc}
       .rarity{font-size:.85rem;color:var(--muted)}
 
       /* Description (hidden until open) */
-      .desc{margin-top:.6rem;padding-top:.5rem;border-top:1px dashed rgba(0,0,0,0.06);color:#374151;font-size:.95rem}
+      .desc{margin-top:.6rem;padding-top:.5rem;border-top:1px dashed rgba(255,255,255,0.1);color:#e2e8f0;font-size:.95rem}
 
-      /* subtle open state highlight */
-      details[open]{box-shadow:0 10px 30px rgba(16,24,40,0.06);transform:translateY(-2px);transition:transform .15s ease}
+      details[open]{box-shadow:0 10px 30px rgba(0,0,0,0.4);transform:translateY(-2px);transition:transform .15s ease}
 
-      /* small responsive tweak */
       @media (max-width:420px){.icon{width:40px;height:40px}}    
     </style>
   </head>
@@ -38,7 +43,7 @@
         <!-- Example badge 1 -->
         <details class="badge" role="listitem">
           <summary>
-            <div class="icon" aria-hidden="true">🏆</div>
+            <div class="icon"><img src="first-win.png" alt="First Win icon"></div>
             <div class="meta">
               <span class="title">First Win</span>
               <span class="rarity">Common</span>
@@ -50,7 +55,7 @@
         <!-- Example badge 2 -->
         <details class="badge" role="listitem">
           <summary>
-            <div class="icon" aria-hidden="true">🌟</div>
+            <div class="icon"><img src="star-collector.png" alt="Star Collector icon"></div>
             <div class="meta">
               <span class="title">Star Collector</span>
               <span class="rarity">Rare</span>
@@ -62,7 +67,7 @@
         <!-- Example badge 3 -->
         <details class="badge" role="listitem">
           <summary>
-            <div class="icon" aria-hidden="true">🔒</div>
+            <div class="icon"><img src="secret-finder.png" alt="Secret Finder icon"></div>
             <div class="meta">
               <span class="title">Secret Finder</span>
               <span class="rarity">Legendary</span>
