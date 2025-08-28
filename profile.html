@@ -26,7 +26,7 @@
 
       /* XP progress bar */
       .xp-bar{background:#334155;border-radius:8px;overflow:hidden;height:calc(16px * var(--scale));margin-bottom:1rem}
-      .xp-bar span{display:block;height:100%;background:var(--accent);width:45%; /* example progress */}
+      .xp-bar span{display:block;height:100%;background:var(--accent);width:0%;transition:width 0.5s ease}
 
       .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(.75rem * var(--scale));margin-top:.5rem}
       .stat{background:#334155;padding:calc(.5rem * var(--scale));border-radius:12px;font-size:calc(1rem * var(--scale));text-align:center}
@@ -42,8 +42,8 @@
         </div>
         <div class="info">
           <h1 class="username">Username</h1>
-          <div class="level">Level 10 (??/365 XP)</div>
-          <div class="xp-bar"><span></span></div>
+          <div class="level">Level 10 (<span id="xp-count">0</span>/365 XP)</div>
+          <div class="xp-bar"><span id="xp-bar-fill"></span></div>
           <div class="stats">
             <div class="stat">Stat 1: 50</div>
             <div class="stat">Stat 2: 75</div>
@@ -55,5 +55,24 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const startDate = new Date(2025, 7, 8); // August 8, 2025 (month is 0-indexed)
+      const maxXP = 365;
+
+      function updateXPBar() {
+        const today = new Date();
+        const diffTime = today - startDate;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const xp = Math.min(diffDays, maxXP);
+        const percent = (xp / maxXP) * 100;
+
+        document.getElementById('xp-count').textContent = xp;
+        document.getElementById('xp-bar-fill').style.width = percent + '%';
+      }
+
+      updateXPBar();
+      setInterval(updateXPBar, 1000 * 60 * 60); // update every hour
+    </script>
   </body>
 </html>
