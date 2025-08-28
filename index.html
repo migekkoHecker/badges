@@ -5,35 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Achievements</title>
     <style>
-      /* Center the list on the page */
       :root{
         --bg:#0f172a; /* dark navy blue */
         --card:#1e293b;
         --muted:#94a3b8;
         --accent:#3b82f6;
+        --scale:1.2; /* change this to scale all badges */
       }
+
       html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#f1f5f9}
       .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:3rem}
-      .badges{width:min(720px,95%);display:grid;gap:1rem}
+      .badges{width:min(720px,95%);display:grid;gap:calc(1rem * var(--scale))}
 
       /* Single badge */
-      .badge{background:var(--card);border-radius:12px;padding:.6rem;border:1px solid rgba(255,255,255,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.25)}
-      summary{list-style:none;display:flex;align-items:center;gap:.75rem;cursor:pointer;outline:none}
+      .badge{background:var(--card);border-radius:12px;padding:calc(.6rem * var(--scale));border:1px solid rgba(255,255,255,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.25)}
+      summary{list-style:none;display:flex;align-items:center;gap:calc(.75rem * var(--scale));cursor:pointer;outline:none}
       summary::-webkit-details-marker{display:none}
 
-      .icon{width:48px;height:48px;flex:0 0 48px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#334155}
+      .icon{width:calc(48px * var(--scale));height:calc(48px * var(--scale));flex:0 0 calc(48px * var(--scale));border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#334155}
       .icon img{width:100%;height:100%;object-fit:cover}
 
       .meta{flex:1;display:flex;flex-direction:column}
-      .title{font-size:1rem;font-weight:700;color:#f8fafc}
-      .rarity{font-size:.85rem;color:var(--muted)}
+      .title{font-size:calc(1rem * var(--scale));font-weight:700;color:#f8fafc}
+      .rarity{font-size:calc(.85rem * var(--scale));color:var(--muted)}
 
-      /* Description (hidden until open) */
-      .desc{margin-top:.6rem;padding-top:.5rem;border-top:1px dashed rgba(255,255,255,0.1);color:#e2e8f0;font-size:.95rem}
+      .desc{margin-top:calc(.6rem * var(--scale));padding-top:calc(.5rem * var(--scale));border-top:1px dashed rgba(255,255,255,0.1);color:#e2e8f0;font-size:calc(.95rem * var(--scale))}
 
       details[open]{box-shadow:0 10px 30px rgba(0,0,0,0.4);transform:translateY(-2px);transition:transform .15s ease}
 
-      @media (max-width:420px){.icon{width:40px;height:40px}}    
+      @media (max-width:420px){.icon{width:calc(40px * var(--scale));height:calc(40px * var(--scale))}}
+
+      /* Progress bar */
+      .progress{
+        margin-top:.5rem;
+        background:#334155;
+        border-radius:6px;
+        overflow:hidden;
+        height:calc(12px * var(--scale));
+      }
+      .progress span{
+        display:block;
+        height:100%;
+        background:var(--accent);
+        width:50%; /* example progress */
+      }
     </style>
   </head>
   <body>
@@ -74,6 +89,21 @@
             </div>
           </summary>
           <div class="desc">Discovered a hidden area that only a few players find. Very exclusive!</div>
+        </details>
+
+        <!-- Example badge 4 with progress -->
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon"><img src="grinder.png" alt="Grinder icon"></div>
+            <div class="meta">
+              <span class="title">The Grinder</span>
+              <span class="rarity">Epic</span>
+            </div>
+          </summary>
+          <div class="desc">
+            Mine 10,000 blocks total. Progress shown below:
+            <div class="progress"><span style="width:70%"></span></div>
+          </div>
         </details>
 
       </div>
