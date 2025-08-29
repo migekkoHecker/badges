@@ -28,7 +28,7 @@
         align-items:center;
         justify-content:flex-start;
         padding:3rem;
-        gap:2rem; 
+        gap:2rem;
       }
 
       /* Profile Card */
@@ -178,18 +178,15 @@
         background:#2563eb;
       }
 
-      /* Extra stats list */
       #extra-stats {
-        display:none;
+        display:none; /* hidden by default */
         margin-top:1rem;
-        display:flex;
-        flex-direction:column; /* vertical list */
-        gap:.5rem;
+        gap:calc(.75rem * var(--scale));
+        flex-direction: column;
+        display: flex;
       }
-
       #extra-stats .stat {
         background:#334155;
-        text-align:left;
       }
     </style>
   </head>
@@ -216,14 +213,13 @@
           <!-- Show more stats -->
           <div class="extra-stats-wrapper">
             <button id="toggle-extra-stats">Show more stats</button>
-            <div id="extra-stats">
+            <div id="extra-stats" class="stats">
               <div class="stat">Luck: ??</div>
               <div class="stat">Agility: 87</div>
               <div class="stat">Endurance: 88</div>
               <div class="stat">Stealth: 68</div>
               <div class="stat">Creativity: 97</div>
               <div class="stat">Cooking: 13</div>
-              <!-- Add as many extra stats as needed -->
             </div>
           </div>
         </div>
@@ -242,7 +238,7 @@
     </div>
 
     <script>
-      const startDate = new Date(2025, 7, 8); 
+      const startDate = new Date(2025, 7, 8); // August 8, 2025
       const maxXP = 365;
 
       function updateXPBar() {
@@ -257,7 +253,7 @@
       }
 
       updateXPBar();
-      setInterval(updateXPBar, 1000 * 60 * 60); 
+      setInterval(updateXPBar, 1000 * 60 * 60); // update every hour
 
       // Toggle extra stats
       const toggleButton = document.getElementById('toggle-extra-stats');
