@@ -13,36 +13,158 @@
         --scale:1.5;
       }
 
-      html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#f1f5f9}
-      .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:3rem}
-      .profile-card{background:var(--card);border-radius:16px;padding:calc(1rem * var(--scale));width:min(800px,95%);box-shadow:0 8px 24px rgba(0,0,0,0.35);display:grid;grid-template-columns:auto 1fr;gap:calc(1.5rem * var(--scale))}
+      html,body{
+        height:100%;
+        margin:0;
+        font-family:system-ui,Segoe UI,Roboto,Arial;
+        background:var(--bg);
+        color:#f1f5f9;
+      }
 
-      .skin-icon{width:calc(120px * var(--scale));height:calc(120px * var(--scale));flex-shrink:0;border-radius:20px;overflow:hidden;background:#334155;display:flex;align-items:center;justify-content:center}
-      .skin-icon img{width:100%;height:100%;object-fit:cover}
+      .wrap{
+        min-height:100%;
+        display:flex;
+        flex-direction:column; /* stack profile + badges */
+        align-items:center;
+        justify-content:flex-start;
+        padding:3rem;
+        gap:2rem; /* spacing between cards */
+      }
 
-      .info{display:flex;flex-direction:column;justify-content:center}
-      .username{font-size:calc(2rem * var(--scale));font-weight:700;margin:0}
-      .level{font-size:calc(1.25rem * var(--scale));color:var(--accent);margin:.5rem 0}
+      /* Profile Card */
+      .profile-card{
+        background:var(--card);
+        border-radius:16px;
+        padding:calc(1rem * var(--scale));
+        width:min(800px,95%);
+        box-shadow:0 8px 24px rgba(0,0,0,0.35);
+        display:grid;
+        grid-template-columns:auto 1fr;
+        gap:calc(1.5rem * var(--scale));
+      }
+
+      .skin-icon{
+        width:calc(120px * var(--scale));
+        height:calc(120px * var(--scale));
+        flex-shrink:0;
+        border-radius:20px;
+        overflow:hidden;
+        background:#334155;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .skin-icon img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+
+      .info{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+      }
+
+      .username{
+        font-size:calc(2rem * var(--scale));
+        font-weight:700;
+        margin:0;
+      }
+
+      .level{
+        font-size:calc(1.25rem * var(--scale));
+        color:var(--accent);
+        margin:.5rem 0;
+      }
 
       /* XP progress bar */
-      .xp-bar{background:#334155;border-radius:8px;overflow:hidden;height:calc(16px * var(--scale));margin-bottom:1rem}
-      .xp-bar span{display:block;height:100%;background:var(--accent);width:0%;transition:width 0.5s ease}
+      .xp-bar{
+        background:#334155;
+        border-radius:8px;
+        overflow:hidden;
+        height:calc(16px * var(--scale));
+        margin-bottom:1rem;
+      }
+      .xp-bar span{
+        display:block;
+        height:100%;
+        background:var(--accent);
+        width:0%;
+        transition:width 0.5s ease;
+      }
 
-      .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(.75rem * var(--scale));margin-top:.5rem}
-      .stat{background:#334155;padding:calc(.5rem * var(--scale));border-radius:12px;font-size:calc(1rem * var(--scale));text-align:center}
+      .stats{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:calc(.75rem * var(--scale));
+        margin-top:.5rem;
+      }
+      .stat{
+        background:#334155;
+        padding:calc(.5rem * var(--scale));
+        border-radius:12px;
+        font-size:calc(1rem * var(--scale));
+        text-align:center;
+      }
 
-      @media (max-width:600px){.profile-card{grid-template-columns:1fr;justify-items:center}.stats{grid-template-columns:1fr}}
-       /* Completed Badges Section */
-      .badges-section{width:min(800px,95%);background:var(--card);border-radius:16px;padding:1rem 1.5rem;box-shadow:0 6px 18px rgba(0,0,0,0.25)}
-      .badges-title{font-size:1.5rem;font-weight:700;margin-bottom:1rem;color:#f8fafc}
-      .badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1rem}
-      .badge-icon{background:#334155;border-radius:12px;padding:.75rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-      .badge-icon img{width:64px;height:64px;object-fit:cover;margin-bottom:.5rem}
-      .badge-icon span{font-size:.9rem;color:#e2e8f0}
+      @media (max-width:600px){
+        .profile-card{grid-template-columns:1fr;justify-items:center}
+        .stats{grid-template-columns:1fr}
+      }
+
+      /* Completed Badges Section */
+      .badges-section{
+        width:min(800px,95%);
+        background:var(--card);
+        border-radius:16px;
+        padding:1rem 1.5rem;
+        box-shadow:0 6px 18px rgba(0,0,0,0.25);
+      }
+      .badges-title{
+        font-size:1.5rem;
+        font-weight:700;
+        margin-bottom:1rem;
+        color:#f8fafc;
+      }
+      .badges-grid{
+        display:grid;
+        grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+        gap:1rem;
+      }
+      .badge-icon{
+        background:#334155;
+        border-radius:12px;
+        padding:.75rem;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+      }
+      .badge-icon img{
+        width:64px;
+        height:64px;
+        object-fit:cover;
+        margin-bottom:.5rem;
+      }
+      .badge-icon span{
+        font-size:.9rem;
+        color:#e2e8f0;
+      }
+
+      /* Emoji badges */
+      .emoji{
+        font-size:3rem;
+        line-height:1;
+        margin-bottom:.5rem;
+      }
     </style>
   </head>
   <body>
     <div class="wrap">
+      <!-- Profile card -->
       <div class="profile-card">
         <div class="skin-icon">
           <img src="skin.png" alt="User Skin">
@@ -52,16 +174,17 @@
           <div class="level">Level 16 (<span id="xp-count">0</span>/365 XP)</div>
           <div class="xp-bar"><span id="xp-bar-fill"></span></div>
           <div class="stats">
-            <div class="stat">Strenght: 71</div>
+            <div class="stat">Strength: 71</div>
             <div class="stat">Dexterity: 84</div>
-            <div class="stat">Constituntion: 95</div>
+            <div class="stat">Constitution: 95</div>
             <div class="stat">Intelligence: 53</div>
             <div class="stat">Wisdom: 65</div>
             <div class="stat">Charisma: 79</div>
-            <div class="stat">Badges completed: 0/4</div>
+            <div class="stat">Badges completed: 1/4</div>
           </div>
         </div>
       </div>
+
       <!-- Completed Badges -->
       <div class="badges-section">
         <div class="badges-title">Completed Badges</div>
@@ -70,13 +193,20 @@
             <div class="emoji">♂️</div>
             <span>Male</span>
           </div>
+          <div class="badge-icon">
+            <div class="emoji">🗺️</div>
+            <span>Explorer</span>
+          </div>
+          <div class="badge-icon">
+            <div class="emoji">💎</div>
+            <span>Diamond Rank</span>
+          </div>
         </div>
       </div>
-
     </div>
-    
+
     <script>
-      const startDate = new Date(2025, 7, 8); // August 8, 2025 (month is 0-indexed)
+      const startDate = new Date(2025, 7, 8); // August 8, 2025
       const maxXP = 365;
 
       function updateXPBar() {
