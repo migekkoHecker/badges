@@ -178,15 +178,18 @@
         background:#2563eb;
       }
 
+      /* Smooth Expand/Collapse for extra stats */
       #extra-stats {
-        display:none; /* hidden by default */
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.5s ease;
         margin-top:1rem;
         gap:calc(.75rem * var(--scale));
-        flex-direction: column;
         display: flex;
+        flex-direction: column;
       }
-      #extra-stats .stat {
-        background:#334155;
+      #extra-stats.show {
+        max-height: 1000px; /* large enough to fit content */
       }
     </style>
   </head>
@@ -255,18 +258,13 @@
       updateXPBar();
       setInterval(updateXPBar, 1000 * 60 * 60); // update every hour
 
-      // Toggle extra stats
+      // Toggle extra stats with smooth animation
       const toggleButton = document.getElementById('toggle-extra-stats');
       const extraStats = document.getElementById('extra-stats');
 
       toggleButton.addEventListener('click', () => {
-        if(extraStats.style.display === 'none' || extraStats.style.display === '') {
-          extraStats.style.display = 'flex';
-          toggleButton.textContent = 'Hide extra stats';
-        } else {
-          extraStats.style.display = 'none';
-          toggleButton.textContent = 'Show more stats';
-        }
+        extraStats.classList.toggle('show');
+        toggleButton.textContent = extraStats.classList.contains('show') ? 'Hide extra stats' : 'Show more stats';
       });
     </script>
   </body>
