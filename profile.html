@@ -14,7 +14,9 @@
       }
 
       html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#f1f5f9}
-      .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:3rem}
+      .wrap{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:3rem;gap:2rem}
+
+      /* Profile Card */
       .profile-card{background:var(--card);border-radius:16px;padding:calc(1rem * var(--scale));width:min(800px,95%);box-shadow:0 8px 24px rgba(0,0,0,0.35);display:grid;grid-template-columns:auto 1fr;gap:calc(1.5rem * var(--scale))}
 
       .skin-icon{width:calc(120px * var(--scale));height:calc(120px * var(--scale));flex-shrink:0;border-radius:20px;overflow:hidden;background:#334155;display:flex;align-items:center;justify-content:center}
@@ -31,11 +33,24 @@
       .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(.75rem * var(--scale));margin-top:.5rem}
       .stat{background:#334155;padding:calc(.5rem * var(--scale));border-radius:12px;font-size:calc(1rem * var(--scale));text-align:center}
 
-      @media (max-width:600px){.profile-card{grid-template-columns:1fr;justify-items:center}.stats{grid-template-columns:1fr}}
+      @media (max-width:600px){
+        .profile-card{grid-template-columns:1fr;justify-items:center}
+        .stats{grid-template-columns:1fr}
+      }
+
+      /* Completed Badges Section */
+      .badges-section{width:min(800px,95%);background:var(--card);border-radius:16px;padding:1rem 1.5rem;box-shadow:0 6px 18px rgba(0,0,0,0.25)}
+      .badges-title{font-size:1.5rem;font-weight:700;margin-bottom:1rem;color:#f8fafc}
+      .badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1rem}
+      .badge-icon{background:#334155;border-radius:12px;padding:.75rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+      .badge-icon img{width:64px;height:64px;object-fit:cover;margin-bottom:.5rem}
+      .badge-icon span{font-size:.9rem;color:#e2e8f0}
     </style>
   </head>
   <body>
     <div class="wrap">
+
+      <!-- Profile card -->
       <div class="profile-card">
         <div class="skin-icon">
           <img src="skin.png" alt="User Skin">
@@ -45,20 +60,36 @@
           <div class="level">Level 16 (<span id="xp-count">0</span>/365 XP)</div>
           <div class="xp-bar"><span id="xp-bar-fill"></span></div>
           <div class="stats">
-            <div class="stat">Strenght: 50</div>
+            <div class="stat">Strength: 50</div>
             <div class="stat">Dexterity: 75</div>
-            <div class="stat">Constituntion: 20</div>
+            <div class="stat">Constitution: 20</div>
             <div class="stat">Intelligence: 100</div>
             <div class="stat">Wisdom: 60</div>
             <div class="stat">Charisma: 90</div>
-            <div class="stat">Badges completed: 0/4</div>
+            <div class="stat">Badges completed: 2/4</div>
           </div>
         </div>
       </div>
+
+      <!-- Completed Badges -->
+      <div class="badges-section">
+        <div class="badges-title">Completed Badges</div>
+        <div class="badges-grid">
+          <div class="badge-icon">
+            <img src="https://raw.githubusercontent.com/migekkoHecker/badges/refs/heads/main/bronze-template.png" alt="Male Badge">
+            <span>Male</span>
+          </div>
+          <div class="badge-icon">
+            <img src="https://raw.githubusercontent.com/migekkoHecker/badges/refs/heads/main/gold-template.png" alt="Explorer Badge">
+            <span>Explorer</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <script>
-      const startDate = new Date(2025, 7, 8); // August 8, 2025 (month is 0-indexed)
+      const startDate = new Date(2025, 7, 8); // August 8, 2025
       const maxXP = 365;
 
       function updateXPBar() {
