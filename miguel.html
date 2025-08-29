@@ -32,6 +32,13 @@
       .stat{background:#334155;padding:calc(.5rem * var(--scale));border-radius:12px;font-size:calc(1rem * var(--scale));text-align:center}
 
       @media (max-width:600px){.profile-card{grid-template-columns:1fr;justify-items:center}.stats{grid-template-columns:1fr}}
+       /* Completed Badges Section */
+      .badges-section{width:min(800px,95%);background:var(--card);border-radius:16px;padding:1rem 1.5rem;box-shadow:0 6px 18px rgba(0,0,0,0.25)}
+      .badges-title{font-size:1.5rem;font-weight:700;margin-bottom:1rem;color:#f8fafc}
+      .badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1rem}
+      .badge-icon{background:#334155;border-radius:12px;padding:.75rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+      .badge-icon img{width:64px;height:64px;object-fit:cover;margin-bottom:.5rem}
+      .badge-icon span{font-size:.9rem;color:#e2e8f0}
     </style>
   </head>
   <body>
@@ -55,8 +62,19 @@
           </div>
         </div>
       </div>
-    </div>
+      <!-- Completed Badges -->
+      <div class="badges-section">
+        <div class="badges-title">Completed Badges</div>
+        <div class="badges-grid">
+          <div class="badge-icon">
+            <div class="emoji">♂️</div>
+            <span>Male</span>
+          </div>
+        </div>
+      </div>
 
+    </div>
+    
     <script>
       const startDate = new Date(2025, 7, 8); // August 8, 2025 (month is 0-indexed)
       const maxXP = 365;
