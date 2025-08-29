@@ -160,6 +160,34 @@
         line-height:1;
         margin-bottom:.5rem;
       }
+
+      /* Show More Stats Button */
+      #toggle-extra-stats {
+        margin-top:1rem;
+        padding: calc(.5rem * var(--scale)) calc(1rem * var(--scale));
+        border:none;
+        border-radius:8px;
+        background:var(--accent);
+        color:#f1f5f9;
+        font-size:calc(1rem * var(--scale));
+        cursor:pointer;
+        transition:background .2s ease;
+      }
+
+      #toggle-extra-stats:hover {
+        background:#2563eb;
+      }
+
+      #extra-stats {
+        display:none;
+        margin-top:1rem;
+        grid-template-columns:repeat(2,1fr);
+        gap:calc(.75rem * var(--scale));
+      }
+
+      #extra-stats .stat {
+        background:#334155;
+      }
     </style>
   </head>
   <body>
@@ -181,6 +209,24 @@
             <div class="stat">Wisdom: 65</div>
             <div class="stat">Charisma: 79</div>
           </div>
+
+          <!-- Show more stats -->
+          <div class="extra-stats-wrapper">
+            <button id="toggle-extra-stats">Show more stats</button>
+            <div id="extra-stats" class="stats">
+              <div class="stat">Luck: 12</div>
+              <div class="stat">Agility: 45</div>
+              <div class="stat">Endurance: 88</div>
+              <div class="stat">Perception: 63</div>
+              <div class="stat">Charisma Bonus: 7</div>
+              <div class="stat">Stealth: 22</div>
+              <div class="stat">Magic: 50</div>
+              <div class="stat">Crafting: 71</div>
+              <div class="stat">Cooking: 33</div>
+              <div class="stat">Fishing: 18</div>
+              <!-- Add as many extra stats as needed -->
+            </div>
+          </div>
         </div>
       </div>
 
@@ -192,16 +238,6 @@
             <div class="emoji">♂️</div>
             <span>Male</span>
           </div>
-          <!-- inactive badges
-          <div class="badge-icon">
-            <div class="emoji">🗺️</div>
-            <span>Explorer</span>
-          </div>
-          <div class="badge-icon">
-            <div class="emoji">💎</div>
-            <span>Diamond Rank</span>
-          </div>
-          -->
         </div>
       </div>
     </div>
@@ -223,6 +259,20 @@
 
       updateXPBar();
       setInterval(updateXPBar, 1000 * 60 * 60); // update every hour
+
+      // Toggle extra stats
+      const toggleButton = document.getElementById('toggle-extra-stats');
+      const extraStats = document.getElementById('extra-stats');
+
+      toggleButton.addEventListener('click', () => {
+        if(extraStats.style.display === 'none' || extraStats.style.display === '') {
+          extraStats.style.display = 'grid';
+          toggleButton.textContent = 'Hide extra stats';
+        } else {
+          extraStats.style.display = 'none';
+          toggleButton.textContent = 'Show more stats';
+        }
+      });
     </script>
   </body>
 </html>
