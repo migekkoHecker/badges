@@ -6,280 +6,149 @@
     <title>Achievements</title>
     <style>
       :root{
-        --bg:#0f172a;
+        --bg:#0f172a; /* dark navy blue */
         --card:#1e293b;
         --muted:#94a3b8;
         --accent:#3b82f6;
-        --scale:1.5;
+        --scale:1.2; /* change this to scale all badges */
       }
 
-      html,body{
-        height:100%;
-        margin:0;
-        font-family:system-ui,Segoe UI,Roboto,Arial;
-        background:var(--bg);
-        color:#f1f5f9;
-      }
+      html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#f1f5f9}
+      .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:3rem}
+      .badges{width:min(720px,95%);display:grid;gap:calc(1rem * var(--scale))}
 
-      .wrap{
-        min-height:100%;
-        display:flex;
-        flex-direction:column; 
-        align-items:center;
-        justify-content:flex-start;
-        padding:3rem;
-        gap:2rem;
-      }
+      /* Single badge */
+      .badge{background:var(--card);border-radius:12px;padding:calc(.6rem * var(--scale));border:1px solid rgba(255,255,255,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.25)}
+      summary{list-style:none;display:flex;align-items:center;gap:calc(.75rem * var(--scale));cursor:pointer;outline:none}
+      summary::-webkit-details-marker{display:none}
 
-      /* Profile Card */
-      .profile-card{
-        background:var(--card);
-        border-radius:16px;
-        padding:calc(1rem * var(--scale));
-        width:min(800px,95%);
-        box-shadow:0 8px 24px rgba(0,0,0,0.35);
-        display:grid;
-        grid-template-columns:auto 1fr;
-        gap:calc(1.5rem * var(--scale));
-      }
+      .icon{width:calc(48px * var(--scale));height:calc(48px * var(--scale));flex:0 0 calc(48px * var(--scale));border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#334155;font-size:calc(28px * var(--scale))}
+      .meta{flex:1;display:flex;flex-direction:column}
+      .title{font-size:calc(1rem * var(--scale));font-weight:700;color:#f8fafc}
+      .rarity{font-size:calc(.85rem * var(--scale));color:var(--muted)}
 
-      .skin-icon{
-        width:calc(120px * var(--scale));
-        height:calc(120px * var(--scale));
-        flex-shrink:0;
-        border-radius:20px;
-        overflow:hidden;
+      .desc{margin-top:calc(.6rem * var(--scale));padding-top:calc(.5rem * var(--scale));border-top:1px dashed rgba(255,255,255,0.1);color:#e2e8f0;font-size:calc(.95rem * var(--scale))}
+
+      details[open]{box-shadow:0 10px 30px rgba(0,0,0,0.4);transform:translateY(-2px);transition:transform .15s ease}
+
+      @media (max-width:420px){.icon{width:calc(40px * var(--scale));height:calc(40px * var(--scale))}}
+
+      /* Progress bar */
+      .progress{
+        margin-top:.5rem;
         background:#334155;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-      }
-
-      .skin-icon img{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-      }
-
-      .info{
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-      }
-
-      .username{
-        font-size:calc(2rem * var(--scale));
-        font-weight:700;
-        margin:0;
-      }
-
-      .level{
-        font-size:calc(1.25rem * var(--scale));
-        color:var(--accent);
-        margin:.5rem 0;
-      }
-
-      /* XP progress bar */
-      .xp-bar{
-        background:#334155;
-        border-radius:8px;
+        border-radius:6px;
         overflow:hidden;
-        height:calc(16px * var(--scale));
-        margin-bottom:1rem;
+        height:calc(12px * var(--scale));
       }
-      .xp-bar span{
+      .progress span{
         display:block;
         height:100%;
         background:var(--accent);
-        width:0%;
-        transition:width 0.5s ease;
-      }
-
-      .stats{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:calc(.75rem * var(--scale));
-        margin-top:.5rem;
-      }
-      .stat{
-        background:#334155;
-        padding:calc(.5rem * var(--scale));
-        border-radius:12px;
-        font-size:calc(1rem * var(--scale));
-        text-align:center;
-      }
-
-      @media (max-width:600px){
-        .profile-card{grid-template-columns:1fr;justify-items:center}
-        .stats{grid-template-columns:1fr}
-      }
-
-      /* Completed Badges Section */
-      .badges-section{
-        width:min(800px,95%);
-        background:var(--card);
-        border-radius:16px;
-        padding:1rem 1.5rem;
-        box-shadow:0 6px 18px rgba(0,0,0,0.25);
-      }
-      .badges-title{
-        font-size:1.5rem;
-        font-weight:700;
-        margin-bottom:1rem;
-        color:#f8fafc;
-      }
-      .badges-grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-        gap:1rem;
-      }
-      .badge-icon{
-        background:#334155;
-        border-radius:12px;
-        padding:.75rem;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-      }
-      .badge-icon span{
-        font-size:.9rem;
-        color:#e2e8f0;
-      }
-
-      /* Emoji badges */
-      .emoji{
-        font-size:3rem;
-        line-height:1;
-        margin-bottom:.5rem;
-      }
-
-      /* Show More Stats Button */
-      #toggle-extra-stats {
-        margin-top:1rem;
-        padding: calc(.5rem * var(--scale)) calc(1rem * var(--scale));
-        border:none;
-        border-radius:8px;
-        background:var(--accent);
-        color:#f1f5f9;
-        font-size:calc(1rem * var(--scale));
-        cursor:pointer;
-        transition:background .2s ease;
-      }
-
-      #toggle-extra-stats:hover {
-        background:#2563eb;
-      }
-
-      /* Smooth Expand/Collapse for extra stats */
-      #extra-stats {
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 0.5s ease;
-        margin-top:1rem;
-        gap:calc(.75rem * var(--scale));
-        display: flex;
-        flex-direction: column;
-      }
-      #extra-stats.show {
-        max-height: 1000px; /* large enough to fit content */
+        width:50%; /* example progress */
       }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <!-- Profile card -->
-      <div class="profile-card">
-        <div class="skin-icon">
-          <img src="https://raw.githubusercontent.com/migekkoHecker/badges/refs/heads/main/miguel.png" alt="User Skin">
-        </div>
-        <div class="info">
-          <h1 class="username">Miguel</h1>
-          <div class="level">Level 16 (<span id="xp-count">0</span>/365 XP)</div>
-          <div class="xp-bar"><span id="xp-bar-fill"></span></div>
-          <div class="stats">
-            <div class="stat">Strength: 71</div>
-            <div class="stat">Dexterity: 84</div>
-            <div class="stat">Constitution: 95</div>
-            <div class="stat">Intelligence: 53</div>
-            <div class="stat">Wisdom: 65</div>
-            <div class="stat">Charisma: 79</div>
-          </div>
+      <div class="badges" role="list">
 
-          <!-- Show more stats -->
-          <div class="extra-stats-wrapper">
-            <button id="toggle-extra-stats">Show more stats</button>
-            <div id="extra-stats" class="stats">
-              <div class="stat">Luck: ??</div>
-              <div class="stat">Agility: 87</div>
-              <div class="stat">Endurance: 88</div>
-              <div class="stat">Stealth: 68</div>
-              <div class="stat">Creativity: 97</div>
-              <div class="stat">Cooking: 13</div>
+        <!-- Example badge 1 -->
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">👨</div>
+            <div class="meta">
+              <span class="title">Gender: male</span>
+              <span class="rarity">Rarity: Bronze</span>
             </div>
-          </div>
-        </div>
-      </div>
+          </summary>
+          <div class="desc">Unlocked for being male.</div>
+        </details>
+        
+        <!-- Example badge 2 -->
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">👩</div>
+            <div class="meta">
+              <span class="title">Gender: female</span>
+              <span class="rarity">Rarity: Bronze</span>
+            </div>
+          </summary>
+          <div class="desc">Unlocked for being female.</div>
+        </details>
 
-      <!-- Completed Badges -->
-      <div class="badges-section">
-        <div class="badges-title">Completed Badges (6)</div>
-        <div class="badges-grid">
-          <div class="badge-icon">
-            <div class="emoji">♂️</div>
-            <span>Male</span>
+        <!--
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">🌍</div>
+            <div class="meta">
+              <span class="title">Explorer</span>
+              <span class="rarity">Rarity: Gold</span>
+            </div>
+          </summary>
+          <div class="desc">Visit 5 different countries</div>
+          <div class="progress"><span style="width:80%"></span></div>
+        </details> 
+
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">❤️</div>
+            <div class="meta">
+              <span class="title">Get a girlfriend</span>
+              <span class="rarity">Rarity: Diamond</span>
+            </div>
+          </summary>
+          <div class="desc">yea you aint getting a gf buddy</div>
+        </details>
+
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">💎</div>
+            <div class="meta">
+              <span class="title">Reach level 100</span>
+              <span class="rarity">Rarity: Amethyst</span>
+            </div>
+          </summary>
+          <div class="desc">good luck waiting</div>
+        </details>
+
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">⭐</div>
+            <div class="meta">
+              <span class="title">Star Collector</span>
+              <span class="rarity">Rare</span>
+            </div>
+          </summary>
+          <div class="desc">Collected 100 stars across all levels. This shows dedication and skill.</div>
+        </details>
+
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">🕵️</div>
+            <div class="meta">
+              <span class="title">Secret Finder</span>
+              <span class="rarity">Legendary</span>
+            </div>
+          </summary>
+          <div class="desc">Discovered a hidden area that only a few players find. Very exclusive!</div>
+        </details>
+
+        <details class="badge" role="listitem">
+          <summary>
+            <div class="icon">⛏️</div>
+            <div class="meta">
+              <span class="title">The Grinder</span>
+              <span class="rarity">Epic</span>
+            </div>
+          </summary>
+          <div class="desc">
+            Mine 10,000 blocks total. Progress shown below:
+            <div class="progress"><span style="width:70%"></span></div>
           </div>
-          <div class="badge-icon">
-            <div class="emoji">♀️</div>
-            <span>Female</span>
-          </div>
-          <div class="badge-icon">
-            <div class="emoji">🌍</div>
-            <span>Explorer</span>
-          </div>
-          <div class="badge-icon">
-            <div class="emoji">💎</div>
-            <span>Get a Girlfriend</span>
-          </div>
-          <div class="badge-icon">
-            <div class="emoji">⭐</div>
-            <span>Star Collector</span>
-          </div>
-          <div class="badge-icon">
-            <div class="emoji">⛏️</div>
-            <span>The Grinder</span>
-          </div>
-        </div>
+        </details>
+-->
       </div>
     </div>
-
-    <script>
-      const startDate = new Date(2025, 7, 8); // August 8, 2025
-      const maxXP = 365;
-
-      function updateXPBar() {
-        const today = new Date();
-        const diffTime = today - startDate;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        const xp = Math.min(diffDays, maxXP);
-        const percent = (xp / maxXP) * 100;
-
-        document.getElementById('xp-count').textContent = xp;
-        document.getElementById('xp-bar-fill').style.width = percent + '%';
-      }
-
-      updateXPBar();
-      setInterval(updateXPBar, 1000 * 60 * 60); // update every hour
-
-      // Toggle extra stats with smooth animation
-      const toggleButton = document.getElementById('toggle-extra-stats');
-      const extraStats = document.getElementById('extra-stats');
-
-      toggleButton.addEventListener('click', () => {
-        extraStats.classList.toggle('show');
-        toggleButton.textContent = extraStats.classList.contains('show') ? 'Hide extra stats' : 'Show more stats';
-      });
-    </script>
   </body>
 </html>
