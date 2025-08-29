@@ -24,11 +24,11 @@
       .wrap{
         min-height:100%;
         display:flex;
-        flex-direction:column; /* stack profile + badges */
+        flex-direction:column; 
         align-items:center;
         justify-content:flex-start;
         padding:3rem;
-        gap:2rem; /* spacing between cards */
+        gap:2rem; 
       }
 
       /* Profile Card */
@@ -178,15 +178,18 @@
         background:#2563eb;
       }
 
+      /* Extra stats list */
       #extra-stats {
         display:none;
         margin-top:1rem;
-        grid-template-columns:repeat(2,1fr);
-        gap:calc(.75rem * var(--scale));
+        display:flex;
+        flex-direction:column; /* vertical list */
+        gap:.5rem;
       }
 
       #extra-stats .stat {
         background:#334155;
+        text-align:left;
       }
     </style>
   </head>
@@ -213,7 +216,7 @@
           <!-- Show more stats -->
           <div class="extra-stats-wrapper">
             <button id="toggle-extra-stats">Show more stats</button>
-            <div id="extra-stats" class="stats">
+            <div id="extra-stats">
               <div class="stat">Luck: ??</div>
               <div class="stat">Agility: 87</div>
               <div class="stat">Endurance: 88</div>
@@ -239,7 +242,7 @@
     </div>
 
     <script>
-      const startDate = new Date(2025, 7, 8); // August 8, 2025
+      const startDate = new Date(2025, 7, 8); 
       const maxXP = 365;
 
       function updateXPBar() {
@@ -254,7 +257,7 @@
       }
 
       updateXPBar();
-      setInterval(updateXPBar, 1000 * 60 * 60); // update every hour
+      setInterval(updateXPBar, 1000 * 60 * 60); 
 
       // Toggle extra stats
       const toggleButton = document.getElementById('toggle-extra-stats');
@@ -262,7 +265,7 @@
 
       toggleButton.addEventListener('click', () => {
         if(extraStats.style.display === 'none' || extraStats.style.display === '') {
-          extraStats.style.display = 'grid';
+          extraStats.style.display = 'flex';
           toggleButton.textContent = 'Hide extra stats';
         } else {
           extraStats.style.display = 'none';
